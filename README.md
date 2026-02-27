@@ -13,7 +13,8 @@ A robust, fully automated Python-based LinkedIn profile scraper built with [Play
   - **Skills & Certifications**: Extracts validated skills and certification references.
   - **Projects**: Extracts descriptions and timelines for linked projects.
   - **Contact Info**: Clicks the 'Contact Info' overlay dynamically to snag Emails, Phone numbers, Birthdays, Connected dates, Websites, and Social Hubs (e.g. GitHub/Twitter links).
-- **Strict Data Validation**: Utilizes [Pydantic](https://docs.pydantic.dev/latest/) to enforce strict typing on the extracted dataset before exporting it.
+- **Session Caching**: The script saves login cookies to a local `session.json` file. This means **you only log in once**. After the first run, the scraper bypasses the login screen entirely resulting in lightning-fast, stealthy execution without triggering 2FA or CAPTCHAs.
+- **Dual Outputs (.json & .csv)**: The scraper simultaneously exports raw nested profile data into a rigorous Pydantic-validated JSON file, and a flattened CSV table perfect for Excel or Airtable imports.
 - **Dual Execution Modes**: 
   - Edit hardcoded configuration directly within `main.py` OR pass Command Line Arguments (CLI).
 
@@ -88,9 +89,12 @@ python main.py --username your_email@domain.com --password YourPassword --csv pr
 ```
 
 ## Output Formats
-The scraper exports a JSON array using the Pydantic schema validation. A `output_raw.json` file will be generated in the root directory upon successful completion.
+The scraper exports the extracted data in two formats upon successful completion:
 
-Example Output Schema:
+1. **`output_raw.json`**: A highly structured, rigorous array enforcing Pydantic schema validation. Perfect for databases or API bridging.
+2. **`output_raw.csv`**: A flattened, spreadsheet-ready CSV table. It intelligently maps nested arrays (like the top skills, projects, and the most recent job/education) into single columns for easy review.
+
+Example JSON Output Schema:
 ```json
 {
   "metadata": {
@@ -119,9 +123,9 @@ Example Output Schema:
 ```
 
 ## Troubleshooting
-- **2FA or Checkpoints**: If LinkedIn asks for a verification code, the Playwright window will pause and wait for you to type it in manually. After doing it once, the cookie is saved in `session.json`, and subsequent runs will not ask for 2FA.
-- **Empty Fields**: If the DOM parser suddenly starts returning `null` for specific fields, LinkedIn may have updated their CSS structure. Update the BeautifulSoup find commands inside `scraper/extractor.py`.
-- **Logs**: Execution logs are appended to `execution.log` for debugging and history tracking.
+- **2FA or Checkpoints**: On your **very first run**, if LinkedIn asks for a verification code, the Playwright window will pause and safely wait for you to type the code in manually. Once completed, the session is saved entirely to `session.json`. You will not have to type a 2FA code again unless your session naturally expires months later.
+- **Empty Fields**: If the DOM parser suddenly starts returning `null` for specific fields, LinkedIn may have updated their CSS structure. You can easily update the BeautifulSoup targeted classes inside `scraper/extractor.py`.
+- **Logs**: Detailed execution logs are appended to `execution.log` for debugging and history tracking.
 
 ## Disclaimer
 Scraping LinkedIn's platform directly violates their generic terms of service. This code was created for educational purposes or for use strictly where compliant with local automated scraping laws. Be cautious handling login credentials and respect rate limits to prevent account suspension.
