@@ -1,0 +1,327 @@
+{
+  "metadata": {
+    "scraped_at": "2026-02-27T16:08:46.637456",
+    "total_profiles": 3,
+    "status": "completed"
+  },
+  "profiles": [
+    {
+      "profile_url": "https://linkedin.com/in/williamhgates",
+      "basic": {
+        "profile_url": "https://linkedin.com/in/williamhgates",
+        "full_name": "Bill Gates",
+        "headline": "Chair, Gates Foundation and Founder, Breakthrough Energy",
+        "profile_picture": null,
+        "location": "Seattle, Washington, United States",
+        "connection_count": null,
+        "follower_count": null
+      },
+      "about": "Chair of the Gates Foundation. Founder of Breakthrough Energy. Co-founder of Microsoft. Voracious reader. Avid traveler. Active blogger.Chair of the Gates Foundation. Founder of Breakthrough Energy. Co-founder of Microsoft. Voracious reader. Avid traveler. Active blogger.",
+      "experience": [
+        {
+          "company": "Gates Foundation",
+          "role": "Co-chair",
+          "employment_type": null,
+          "start_date": null,
+          "end_date": null,
+          "duration": "2000 - Present · 26 yrs 2 mos",
+          "location": null,
+          "description": null
+        },
+        {
+          "company": "Breakthrough Energy",
+          "role": "Founder",
+          "employment_type": null,
+          "start_date": null,
+          "end_date": null,
+          "duration": "2015 - Present · 11 yrs 2 mos",
+          "location": null,
+          "description": null
+        },
+        {
+          "company": "Microsoft",
+          "role": "Co-founder",
+          "employment_type": null,
+          "start_date": null,
+          "end_date": null,
+          "duration": "1975 - Present · 51 yrs 2 mos",
+          "location": null,
+          "description": null
+        }
+      ],
+      "education": [
+        {
+          "institute": "Harvard University",
+          "degree": "1973 - 1975",
+          "field_of_study": null,
+          "start_year": null,
+          "end_year": null,
+          "grade": null,
+          "activities": null
+        },
+        {
+          "institute": "Lakeside School",
+          "degree": null,
+          "field_of_study": null,
+          "start_year": null,
+          "end_year": null,
+          "grade": null,
+          "activities": null
+        }
+      ],
+      "skills": [],
+      "certifications": [],
+      "projects": [],
+      "contact_info": {
+        "email": null,
+        "phone": null,
+        "websites": [
+          "https://gatesnot.es/sourcecode-li"
+        ],
+        "social_links": [],
+        "birthday": null,
+        "connected_at": null
+      },
+      "publications": [],
+      "honors_and_awards": [],
+      "volunteering": [],
+      "courses": [],
+      "languages": []
+    },
+    {
+      "profile_url": "https://linkedin.com/in/satyanadella",
+      "basic": {
+        "profile_url": "https://linkedin.com/in/satyanadella",
+        "full_name": "Satya Nadella",
+        "headline": "Chairman and CEO at Microsoft",
+        "profile_picture": null,
+        "location": "Redmond, Washington, United States",
+        "connection_count": null,
+        "follower_count": null
+      },
+      "about": "As chairman and CEO of Microsoft, I define my mission and that of my company as empowering every person and every organization on the planet to achieve more.As chairman and CEO of Microsoft, I define my mission and that of my company as empowering every person and every organization on the planet to achieve more.",
+      "experience": [
+        {
+          "company": "Microsoft",
+          "role": "Chairman and CEO",
+          "employment_type": null,
+          "start_date": null,
+          "end_date": null,
+          "duration": "Feb 2014 - Present · 12 yrs 1 mo",
+          "location": null,
+          "description": "Greater Seattle Area"
+        },
+        {
+          "company": "University of Chicago",
+          "role": "Member Board Of Trustees",
+          "employment_type": null,
+          "start_date": null,
+          "end_date": null,
+          "duration": "2018 - Present · 8 yrs 2 mos",
+          "location": null,
+          "description": null
+        },
+        {
+          "company": "Starbucks",
+          "role": "Board Member",
+          "employment_type": null,
+          "start_date": null,
+          "end_date": null,
+          "duration": "2017 - 2024 · 7 yrs",
+          "location": null,
+          "description": null
+        },
+        {
+          "company": "The Business Council U.S.",
+          "role": "Chairman",
+          "employment_type": null,
+          "start_date": null,
+          "end_date": null,
+          "duration": "2021 - 2023 · 2 yrs",
+          "location": null,
+          "description": null
+        },
+        {
+          "company": "Fred Hutch",
+          "role": "Board Member",
+          "employment_type": null,
+          "start_date": null,
+          "end_date": null,
+          "duration": "2016 - 2022 · 6 yrs",
+          "location": null,
+          "description": null
+        }
+      ],
+      "education": [
+        {
+          "institute": "The University of Chicago Booth School of Business",
+          "degree": "1994 - 1996",
+          "field_of_study": null,
+          "start_year": null,
+          "end_year": null,
+          "grade": null,
+          "activities": null
+        },
+        {
+          "institute": "Manipal Institute of Technology",
+          "degree": "Bachelor’s Degree, Electrical Engineering",
+          "field_of_study": null,
+          "start_year": null,
+          "end_year": null,
+          "grade": null,
+          "activities": null
+        }
+      ],
+      "skills": [],
+      "certifications": [],
+      "projects": [],
+      "contact_info": {
+        "email": null,
+        "phone": null,
+        "websites": [
+          "https://snscratchpad.com/"
+        ],
+        "social_links": [],
+        "birthday": null,
+        "connected_at": null
+      },
+      "publications": [],
+      "honors_and_awards": [],
+      "volunteering": [],
+      "courses": [],
+      "languages": []
+    },
+    {
+      "profile_url": "https://linkedin.com/in/sanskar-malviya",
+      "basic": {
+        "profile_url": "https://linkedin.com/in/sanskar-malviya",
+        "full_name": "Sanskar Malviya",
+        "headline": "Aspiring Data Analyst | Passionate about Data Science and Cybersecurity",
+        "profile_picture": null,
+        "location": "Indore, Madhya Pradesh, India",
+        "connection_count": null,
+        "follower_count": null
+      },
+      "about": "I am a Computer Science Engineer, Data Analyst, and AI Engineer with a strong passion for building intelligent, data-driven solutions that solve real-world business problems.My journey into computer science began with a natural curiosity about how computers work beyond the screen — a curiosity that has evolved into hands-on experience with AI systems, data analytics, and automation. Currently, I work as a Data Analyst at Anaxee Digital Runners, where I design end-to-end analytics solutions, build LLM-powered RAG systems, create interactive geospatial dashboards, and automate insight generation for large-scale GTM and climate projects.I have practical experience working with Python, SQL, Machine Learning, Computer Vision, LLMs, and cloud platforms, and I actively build AI-driven tools that reduce manual effort and improve decision-making speed. My work spans data modeling, AI workflows, retrieval-augmented generation, dashboards, and real-time analytics.Beyond academics and work, I have actively taken leadership and collaborative roles — serving as Photography Head of AMOGH Photography Club, managing a 75+ member team, and collaborating with brands like Nikon, DJI, and Insta360 during major university events. I’ve also been part of the Google Developer Student Club, participated in national-level hackathons, and consistently engaged in technical and creative communities.I am deeply enthusiastic about AI engineering, data science, and software development, and I am always looking to upgrade my skills and contribute to impactful, innovation-driven projects at the intersection of AI, data, and business.I am a Computer Science Engineer, Data Analyst, and AI Engineer with a strong passion for building intelligent, data-driven solutions that solve real-world business problems.\n\nMy journey into computer science began with a natural curiosity about how computers work beyond the screen — a curiosity that has evolved into hands-on experience with AI systems, data analytics, and automation. Currently, I work as a Data Analyst at Anaxee Digital Runners, where I design end-to-end analytics solutions, build LLM-powered RAG systems, create interactive geospatial dashboards, and automate insight generation for large-scale GTM and climate projects.\n\nI have practical experience working with Python, SQL, Machine Learning, Computer Vision, LLMs, and cloud platforms, and I actively build AI-driven tools that reduce manual effort and improve decision-making speed. My work spans data modeling, AI workflows, retrieval-augmented generation, dashboards, and real-time analytics.\n\nBeyond academics and work, I have actively taken leadership and collaborative roles — serving as Photography Head of AMOGH Photography Club, managing a 75+ member team, and collaborating with brands like Nikon, DJI, and Insta360 during major university events. I’ve also been part of the Google Developer Student Club, participated in national-level hackathons, and consistently engaged in technical and creative communities.\n\nI am deeply enthusiastic about AI engineering, data science, and software development, and I am always looking to upgrade my skills and contribute to impactful, innovation-driven projects at the intersection of AI, data, and business.",
+      "experience": [
+        {
+          "company": "2 yrs 1 mo",
+          "role": "Anaxee Digital Runners Private Limited",
+          "employment_type": null,
+          "start_date": null,
+          "end_date": null,
+          "duration": "Indore, Madhya Pradesh, India · On-site",
+          "location": null,
+          "description": "Data Analyst Full-time Jul 2024 - Present · 1 yr 8 mos Data Analyst Intern Internship Feb 2024 - Jun 2024 · 5 mos Aspiring Data Analyst | Currently honing my skills as a Data Analyst Intern, eagerly delving into real-world data challenges and collaborating with industry professionals. Passionate about leveraging data to drive informed decisions and create meaningful impact. Excited to learn, grow, and contribute to the world of analytics."
+        },
+        {
+          "company": "2 yrs 5 mos",
+          "role": "Amogh Photography Club",
+          "employment_type": null,
+          "start_date": null,
+          "end_date": null,
+          "duration": "India",
+          "location": null,
+          "description": "Head of Photography Oct 2022 - Oct 2023 · 1 yr 1 mo Member Jun 2021 - Oct 2022 · 1 yr 5 mos"
+        },
+        {
+          "company": "GAIL (India) Limited · Full-time",
+          "role": "Industrial Training In Data Science",
+          "employment_type": null,
+          "start_date": null,
+          "end_date": null,
+          "duration": "Jul 2023 - Jul 2023 · 1 mo",
+          "location": null,
+          "description": "Ujjain, Madhya Pradesh, India · On-site GAIL CERTIFICATION AND LOI"
+        },
+        {
+          "company": "Oasis Infobyte · Internship",
+          "role": "Internship In Data Science",
+          "employment_type": null,
+          "start_date": null,
+          "end_date": null,
+          "duration": "Apr 2023 - May 2023 · 2 mos",
+          "location": null,
+          "description": "Remote CERTIFICATE AND Offer"
+        }
+      ],
+      "education": [
+        {
+          "institute": "Outskill",
+          "degree": "AI Engineering Program, Artificial Intelligence",
+          "field_of_study": null,
+          "start_year": "Oct 2025 - Mar 2036",
+          "end_year": null,
+          "grade": null,
+          "activities": null
+        },
+        {
+          "institute": "Shri Vaishnav Vidyapeeth Vishwavidyalaya, Indore",
+          "degree": "Bachelor of Technology - BTech, Computer Science",
+          "field_of_study": null,
+          "start_year": "Sep 2020 - May 2024",
+          "end_year": null,
+          "grade": null,
+          "activities": null
+        }
+      ],
+      "skills": [
+        {
+          "name": "Machine Learning"
+        },
+        {
+          "name": "Data Visualization"
+        }
+      ],
+      "certifications": [
+        {
+          "name": "Gemini Certified Educator",
+          "issuer": "United Latino Students Association",
+          "issue_date": "Issued Jan 2026 · Expires Jan 2029",
+          "expiration_date": null,
+          "credential_id": null,
+          "credential_url": null
+        },
+        {
+          "name": "Accenture North America - Data Analytics and Visualization Job Simulation",
+          "issuer": "Forage",
+          "issue_date": "Issued Jul 2024",
+          "expiration_date": null,
+          "credential_id": null,
+          "credential_url": null
+        }
+      ],
+      "projects": [
+        {
+          "name": "ARANYA-THE-DIGITAL-FORESTRY",
+          "description": "Jul 2023 - Dec 2023 Associated with Shri Vaishnav Vidyapeeth Vishwavidyalaya, Indore (Technology: Python, Html, CSS)The platform delivers real-time weather forecasts for forests, utilizes advanced satellite technology for precise tree counting, and integrates live forest data to enhance management efficiency.Developed a dynamic website offering real-time weather forecasts for forests.Integrated advanced image recognition utilizing satellite imagery to accurately count and analyze trees.Incorporated real-time forest information to enhance the platform's utility for effective forestry management and conservation. ARANYA The Digital Forestry",
+          "start_date": null,
+          "end_date": null,
+          "url": null
+        },
+        {
+          "name": "Face recognition and QR attendance management system",
+          "description": "Feb 2023 - May 2023 Associated with Shri Vaishnav Vidyapeeth Vishwavidyalaya, Indore (Technology: Python)Proficient in Python programming, Tkinter, Figma, CV2, QR code integration, and database connectivity GitHub - Samxvii/Face-Recognition-And-QR-Attendance-Management-System Other contributors",
+          "start_date": null,
+          "end_date": null,
+          "url": null
+        }
+      ],
+      "contact_info": {
+        "email": "sanskarmalviya7@gmail.com",
+        "phone": null,
+        "websites": [
+          "https://sanskarmalviya.xyz/"
+        ],
+        "social_links": [],
+        "birthday": "May 17",
+        "connected_at": "Oct 27, 2025"
+      },
+      "publications": [],
+      "honors_and_awards": [],
+      "volunteering": [],
+      "courses": [],
+      "languages": []
+    }
+  ]
+}
