@@ -1,30 +1,44 @@
-# LinkedIn Profile Data Extractor
+# LinkedIn Profile & Company Data Extractor
 
-A robust, fully automated Python-based LinkedIn profile scraper built with [Playwright](https://playwright.dev/python/) and `BeautifulSoup4`. It seamlessly logs into LinkedIn, supports 2FA challenges dynamically, handles lazy-loaded content, and extracts extensive profile details into structured JSON format. 
+A robust, fully automated Python-based LinkedIn scraper built with [Playwright](https://playwright.dev/python/). It logs into LinkedIn, handles 2FA, lazy-loaded content, and extracts extensive profile and company details into structured JSON and CSV formats.
 
 ## Features
-- **Human-like Authentication**: Simulates typing delays, logs in natively via Playwright, and saves sessions locally (`session.json`) to prevent repetitive challenges/bans.
-- **Dynamic Content Loading**: Intercepts background GraphQL requests and scrolls precisely to trigger lazy-loaded sections.
-- **Comprehensive Data Extraction**: 
-  - **Basic Info**: Name, Location, Headline, Connections.
+
+### Profile Scraping
+- **Human-like Authentication**: Simulates typing delays, logs in natively via Playwright, and caches sessions locally (`session.json`) to prevent repetitive 2FA challenges.
+- **Smart Scrolling**: Scrolls LinkedIn's virtualized DOM container (`<main>`) incrementally to trigger lazy-loaded sections, extracting data as each section enters the viewport.
+- **Comprehensive Data Extraction**:
+  - **Basic Info**: Name, Headline, Location, Connections, Followers.
   - **About**: Full summary text.
-  - **Experience**: Complete work history including descriptions, tenure, and location.
+  - **Experience**: Work history with company names (grouped role support), duration, and descriptions.
   - **Education**: Schools, degrees, fields of study, and years.
-  - **Skills & Certifications**: Extracts validated skills and certification references.
-  - **Projects**: Extracts descriptions and timelines for linked projects.
-  - **Contact Info**: Clicks the 'Contact Info' overlay dynamically to snag Emails, Phone numbers, Birthdays, Connected dates, Websites, and Social Hubs (e.g. GitHub/Twitter links).
-- **Session Caching**: The script saves login cookies to a local `session.json` file. This means **you only log in once**. After the first run, the scraper bypasses the login screen entirely resulting in lightning-fast, stealthy execution without triggering 2FA or CAPTCHAs.
-- **Dual Outputs (.json & .csv)**: The scraper simultaneously exports raw nested profile data into a rigorous Pydantic-validated JSON file, and a flattened CSV table perfect for Excel or Airtable imports.
-- **Dual Execution Modes**: 
-  - Edit hardcoded configuration directly within `main.py` OR pass Command Line Arguments (CLI).
+  - **Skills & Certifications**: Validated skills and certification details.
+  - **Projects**: Descriptions and timelines.
+  - **Contact Info**: Opens the Contact Info overlay to extract Email, Phone, Birthday, Connected date, Websites, and Social links.
+  - **Company Links**: Extracts LinkedIn company URLs from the experience section.
+
+### Company Scraping
+- **Auto-Detection**: Pass a `/company/` URL and the scraper automatically switches to company extraction mode.
+- **About Page**: Name, tagline, industry, size, headquarters, founded year, type, specialties, website, **phone**, **email**, full **address**, verified status, follower count, and associated member count.
+- **Jobs Page**: Detailed job listings with title, location, and posted date — with pagination across all pages.
+- **People Page**: Employee directory with names, titles, and profile URLs — clicks "Show more results" and paginates through all pages to capture maximum employees.
+
+### General
+- **Session Caching**: Saves login cookies to `session.json`. After the first login, subsequent runs bypass the login screen entirely.
+- **Dual Outputs (.json & .csv)**: Pydantic-validated JSON and flattened CSV for spreadsheet imports.
+- **Dual Execution Modes**: Edit config directly in `main.py` or pass CLI arguments.
 
 ## Prerequisites
 - Python 3.9+
 - Chrome or Chromium browser installed via Playwright
 
 ## Installation
-1. Clone the repository / Open the project directory.
-2. Create and activate a Virtual Environment.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/sanskar-malviya/LinkedIn-Profile-Data-Extractor.git
+   cd LinkedIn-Profile-Data-Extractor
+   ```
+2. Create and activate a virtual environment:
    ```bash
    python -m venv venv
    # Windows
@@ -32,100 +46,154 @@ A robust, fully automated Python-based LinkedIn profile scraper built with [Play
    # macOS/Linux
    source venv/bin/activate
    ```
-3. Install the required Python packages (assuming standard structure).
+3. Install dependencies:
    ```bash
    pip install -r requirements.txt
    playwright install chromium
    ```
-4. Copy the environment variables example and add your credentials:
+4. Set up credentials:
    ```bash
    cp .env.example .env
    # Open .env and add your LINKEDIN_USERNAME and LINKEDIN_PASSWORD
    ```
 
-## Configuration & Usage
-This script was designed to be easily plug-and-play. You can configure it by editing the `CONFIG BLOCK` at the top of `main.py` or by passing command-line arguments.
+## Usage
 
-### Method 1: Editing `main.py` (Recommended for ease of use)
-Ensure your `.env` file has your credentials loaded.
-Then, open `main.py` and modify lines ~50-65 to match what you want to scrape:
+### Method 1: Edit `main.py` Config Block
 ```python
-# ==========================================
 # ⚙️ CONFIG BLOCK ⚙️
-# You can change these values directly here!
-# ==========================================
-
-# Specify a list of URLs directly:
-# CONFIG_URLS = ["linkedin.com/in/sanskar-malviya", "linkedin.com/in/williamhgates"]
-CONFIG_URLS = [] 
-
-# Or specify a CSV file containing a list of URLs (one per line):
+CONFIG_URLS = []
 CONFIG_CSV = "profiles.csv"
-
-# Scraping Mode ("fast" for testing, "stealth" for human-like delays)
-CONFIG_MODE = "fast" 
+CONFIG_MODE = "fast"
 ```
-Once your config block is set up, simply run:
+Then run:
 ```bash
 python main.py
 ```
 
-### Method 2: Command Line Interface (CLI)
-CLI arguments will **override** whatever is saved in the `main.py` Config Block. This is useful for automated chron jobs or quick single tests.
+### Method 2: CLI Arguments
 
 **Single Profile:**
 ```bash
-python main.py --username your_email@domain.com --password YourPassword --url linkedin.com/in/sanskar-malviya
+python main.py --url linkedin.com/in/sanskar-malviya
 ```
 
-**Multiple Profiles via CSV:**
+**Single Company:**
 ```bash
-python main.py --username your_email@domain.com --password YourPassword --csv profiles.csv
+python main.py --url "https://www.linkedin.com/company/anaxee-digital-runners-private-limited"
 ```
 
-**Run in the background (Headless Mode):**
+**Multiple URLs via CSV** (mix of profiles and companies):
 ```bash
-python main.py --username your_email@domain.com --password YourPassword --csv profiles.csv --headless
+python main.py --csv profiles.csv
 ```
 
-## Output Formats
-The scraper exports the extracted data in two formats upon successful completion:
+**Headless Mode:**
+```bash
+python main.py --csv profiles.csv --headless
+```
 
-1. **`output_raw.json`**: A highly structured, rigorous array enforcing Pydantic schema validation. Perfect for databases or API bridging.
-2. **`output_raw.csv`**: A flattened, spreadsheet-ready CSV table. It intelligently maps nested arrays (like the top skills, projects, and the most recent job/education) into single columns for easy review.
+The scraper auto-detects whether each URL is a person (`/in/`) or company (`/company/`) and extracts accordingly.
 
-Example JSON Output Schema:
+### CLI Options
+| Flag | Description |
+|------|-------------|
+| `--url` | Single LinkedIn URL to scrape |
+| `--csv` | CSV file with URLs (one per line) |
+| `--username` | LinkedIn email (overrides `.env`) |
+| `--password` | LinkedIn password (overrides `.env`) |
+| `--headless` | Run browser without UI |
+| `--mode` | `fast` or `stealth` (human-like delays) |
+| `--proxy` | Proxy URL (`http://user:pass@host:port`) |
+
+## Output
+
+### Files
+- **`output_raw.json`** — Structured, Pydantic-validated JSON.
+- **`output_raw.csv`** — Flattened CSV for Excel/Airtable.
+
+### Profile JSON Schema
 ```json
 {
-  "metadata": {
-    "scraped_at": "2026-02-27T15:00:00",
-    "total_profiles": 1,
-    "status": "completed"
+  "profile_url": "https://linkedin.com/in/sanskar-malviya",
+  "basic": {
+    "full_name": "Sanskar Malviya",
+    "headline": "Data Analyst | AI Engineer | ...",
+    "location": "Indore, Madhya Pradesh, India",
+    "connection_count": 500,
+    "follower_count": 1142
   },
-  "profiles": [
+  "about": "I am a Computer Science Engineer...",
+  "experience": [
     {
-      "profile_url": "https://linkedin.com/in/sanskar-malviya",
-      "basic": {
-        "full_name": "Sanskar Malviya",
-        "headline": "...",
-        "location": "..."
-      },
-      "experience": [ ... ],
-      "education": [ ... ],
-      "skills": [ {"name": "Python"}, ... ],
-      "contact_info": {
-        "email": "example@gmail.com",
-        "websites": ["https://portfolio.com"]
-      }
+      "company": "Anaxee Digital Runners Private Limited",
+      "role": "Data Analyst",
+      "duration": "Jul 2024 - Present · 1 yr 10 mos"
     }
+  ],
+  "education": [...],
+  "skills": [{"name": "Python"}, ...],
+  "contact_info": {
+    "email": "example@gmail.com",
+    "phone": null,
+    "websites": ["https://portfolio.com"],
+    "birthday": "May 17",
+    "connected_at": "Oct 27, 2025"
+  },
+  "company_links": ["https://www.linkedin.com/company/anaxee-digital-runners-private-limited"]
+}
+```
+
+### Company JSON Schema
+```json
+{
+  "company_url": "https://www.linkedin.com/company/anaxee-digital-runners-private-limited",
+  "name": "Anaxee Digital Runners Private Limited",
+  "tagline": "India's Reach Engine!",
+  "industry": "Environmental Services",
+  "company_size": "51-200 employees",
+  "headquarters": "Indore, Madhya Pradesh",
+  "founded": "2016",
+  "website": "https://www.anaxee.com/",
+  "phone": "9584132577",
+  "email": "sales@anaxee.com",
+  "address": "303, Right-wing, New IT Park Building 3rd floor, ..., Indore, MP 452003",
+  "follower_count": 11000,
+  "employee_count_on_linkedin": "247 associated members",
+  "verified": "March 22, 2025",
+  "jobs": [
+    {"title": "Management Trainee || April 2026", "location": "Indore", "posted": "2 weeks ago"}
+  ],
+  "employees": [
+    {"name": "Devesh Chouksey", "title": "Business Development Executive @Anaxee", "profile_url": "https://..."}
   ]
 }
 ```
 
+## Project Structure
+```
+LinkedIn-Profile-Data-Extractor/
+├── main.py                     # Entry point, CLI, orchestration
+├── scraper/
+│   ├── extractor.py            # Profile extraction (live DOM + scrolling)
+│   ├── company_extractor.py    # Company extraction (about/jobs/people)
+│   ├── auth.py                 # Login, session management, 2FA handling
+│   ├── browser.py              # Playwright browser setup
+│   ├── models.py               # Pydantic data models
+│   └── utils.py                # Delays, scrolling helpers
+├── profiles.csv                # Input URLs
+├── output_raw.json             # Generated JSON output
+├── output_raw.csv              # Generated CSV output
+├── session.json                # Cached login session
+├── .env                        # Credentials (not committed)
+└── requirements.txt            # Python dependencies
+```
+
 ## Troubleshooting
-- **2FA or Checkpoints**: On your **very first run**, if LinkedIn asks for a verification code, the Playwright window will pause and safely wait for you to type the code in manually. Once completed, the session is saved entirely to `session.json`. You will not have to type a 2FA code again unless your session naturally expires months later.
-- **Empty Fields**: If the DOM parser suddenly starts returning `null` for specific fields, LinkedIn may have updated their CSS structure. You can easily update the BeautifulSoup targeted classes inside `scraper/extractor.py`.
-- **Logs**: Detailed execution logs are appended to `execution.log` for debugging and history tracking.
+- **2FA / Checkpoints**: On your first run, if LinkedIn asks for a verification code, the Playwright window will pause for you to enter it manually. The session is saved to `session.json` — you won't need 2FA again until the session expires.
+- **Empty Fields**: LinkedIn frequently changes their DOM structure. If fields return `null`, the CSS selectors in `extractor.py` may need updating.
+- **247 members but only 181 extracted**: LinkedIn limits employee visibility based on your connection degree. 3rd+ degree profiles may not be shown.
+- **Logs**: Detailed execution logs are written to `execution.log`.
 
 ## Disclaimer
-Scraping LinkedIn's platform directly violates their generic terms of service. This code was created for educational purposes or for use strictly where compliant with local automated scraping laws. Be cautious handling login credentials and respect rate limits to prevent account suspension.
+Scraping LinkedIn directly may violate their terms of service. This tool is for educational purposes. Handle credentials carefully and respect rate limits to avoid account suspension.
