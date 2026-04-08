@@ -21,19 +21,59 @@ async def human_like_mouse_movement(page: Page):
         page.mouse.move(x, y, steps=10)
         random_delay(0.2, 0.8)
 
-def scroll_to_bottom(page: Page):
-    """Scroll down the page to trigger lazy loaded elements."""
-    last_height = page.evaluate("document.body.scrollHeight")
-    while True:
-        page.keyboard.press("End")
-        random_delay(1.5, 3.0)
-        
-        # Adding a little jiggle
-        page.mouse.wheel(delta_x=0, delta_y=-100)
-        random_delay(0.5, 1.0)
-        page.mouse.wheel(delta_x=0, delta_y=300)
+def scroll_to_bottom(page: Page, max_scrolls: int = 30):
+    """Scroll down the page slowly and incrementally to trigger lazy loaded elements.
 
-        new_height = page.evaluate("document.body.scrollHeight")
+    LinkedIn virtualizes its DOM and uses IntersectionObserver for lazy loading.
+    We must scroll slowly enough for each section to enter the viewport and render.
+    """
+    last_height = page.evaluate("document.documentElement.scrollHeight")
+    scroll_count = 0
+    stale_count = 0
+
+    while scroll_count < max_scrolls and stale_count < 4:
+        # Scroll by half a viewport (~400px) to ensure overlap
+        scroll_amount = random.randint(300, 500)
+        page.evaluate(f"window.scrollBy(0, {scroll_amount})")
+        # Wait longer for LinkedIn's lazy loading to trigger
+        random_delay(1.5, 2.5)
+
+        new_height = page.evaluate("document.documentElement.scrollHeight")
         if new_height == last_height:
-            break
+            stale_count += 1
+            # Wait extra on stale to give pending loads more time
+            random_delay(1.0, 1.5)
+        else:
+            stale_count = 0
         last_height = new_height
+        scroll_count += 1
+
+    # Final scroll to absolute bottom and wait
+    page.evaluate("window.scrollTo(0, document.documentElement.scrollHeight)")
+    random_delay(2.0, 3.0)
+
+    # Scroll back up slowly to re-trigger any sections that got virtualized away
+    current_pos = page.evaluate("window.scrollY")
+    while current_pos > 0:
+        step = random.randint(800, 1200)
+        current_pos = max(0, current_pos - step)
+        page.evaluate(f"window.scrollTo(0, {current_pos})")
+        random_delay(0.8, 1.5)
+
+    # One final slow scroll down to ensure everything is loaded
+    total_height = page.evaluate("document.documentElement.scrollHeight")
+    position = 0
+    while position < total_height:
+        position += random.randint(400, 600)
+        page.evaluate(f"window.scrollTo(0, {min(position, total_height)})")
+        random_delay(1.0, 1.5)
+
+    random_delay(1.0, 2.0)
+
+def scroll_to_element(page: Page, locator):
+    """Scroll a Playwright locator into view."""
+    try:
+        locator.scroll_into_view_if_needed(timeout=5000)
+    except Exception:
+        pass
+    random_delay(0.5, 1.0)

@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 from scraper.browser import BrowserManager
 from scraper.auth import AuthManager
 from scraper.extractor import ProfileExtractor
+from scraper.company_extractor import CompanyExtractor
 from scraper.models import FinalOutput, ProfileMetadata
 
 def setup_logger():
@@ -186,24 +187,33 @@ def main():
         page = auth_manager.login()
         logging.info("Authentication complete. Ready to scrape.")
 
-        # Initialize Extractor
+        # Initialize Extractors
         extractor = ProfileExtractor(page)
+        company_extractor = CompanyExtractor(page)
 
         # Storage
         scraped_profiles = []
+        scraped_companies = []
         failed_profiles = []
 
-        total_profiles = len(urls_to_scrape)
-        
-        # Scrape profiles
+        total_urls = len(urls_to_scrape)
+
+        # Auto-detect and scrape each URL
         for i, url in enumerate(urls_to_scrape):
-            logging.info(f"[{i+1}/{total_profiles}] Scraping profile: {url}")
+            is_company = '/company/' in url or '/company/' in url.lower()
+            url_type = "company" if is_company else "profile"
+            logging.info(f"[{i+1}/{total_urls}] Scraping {url_type}: {url}")
+
             try:
-                # Assuming extractor will return a dict that matches ProfileData model
-                profile_dict = extractor.extract_profile(url)
-                scraped_profiles.append(profile_dict)
-                logging.info(f"Successfully scraped: {url}")
-                
+                if is_company:
+                    company_dict = company_extractor.extract_company(url)
+                    scraped_companies.append(company_dict)
+                    logging.info(f"Successfully scraped company: {url}")
+                else:
+                    profile_dict = extractor.extract_profile(url)
+                    scraped_profiles.append(profile_dict)
+                    logging.info(f"Successfully scraped profile: {url}")
+
             except Exception as e:
                 logging.error(f"Failed to scrape {url}: {str(e)}")
                 failed_profiles.append({"url": url, "error": str(e)})
@@ -215,14 +225,18 @@ def main():
             total_profiles=len(scraped_profiles),
             status="completed"
         )
-        
+
         try:
-            output_model = FinalOutput(metadata=metadata, profiles=scraped_profiles)
-            
+            output_model = FinalOutput(
+                metadata=metadata,
+                profiles=scraped_profiles,
+                companies=scraped_companies
+            )
+
             # Save RAW (the model dumps to standard JSON)
             with open('output_raw.json', 'w', encoding='utf-8') as f:
                 json.dump(output_model.model_dump(), f, indent=2, ensure_ascii=False)
-                
+
             logging.info("Data successfully saved to output_raw.json")
             
             # Save flattened CSV version

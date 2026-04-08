@@ -70,7 +70,8 @@ class ProfileData(BaseModel):
     certifications: List[Certification] = Field(default_factory=list)
     projects: List[Project] = Field(default_factory=list)
     contact_info: Optional[ContactInfo] = None
-    
+    company_links: List[str] = Field(default_factory=list)
+
     # Placeholders for other sections
     publications: List[dict] = Field(default_factory=list)
     honors_and_awards: List[dict] = Field(default_factory=list)
@@ -78,6 +79,40 @@ class ProfileData(BaseModel):
     courses: List[dict] = Field(default_factory=list)
     languages: List[dict] = Field(default_factory=list)
 
+class CompanyEmployee(BaseModel):
+    name: str
+    title: Optional[str] = None
+    profile_url: Optional[str] = None
+
+class CompanyJob(BaseModel):
+    title: str
+    location: Optional[str] = None
+    posted: Optional[str] = None
+
+class CompanyData(BaseModel):
+    company_url: str
+    name: Optional[str] = None
+    tagline: Optional[str] = None
+    industry: Optional[str] = None
+    company_size: Optional[str] = None
+    headquarters: Optional[str] = None
+    founded: Optional[str] = None
+    company_type: Optional[str] = None
+    specialties: Optional[str] = None
+    website: Optional[str] = None
+    phone: Optional[str] = None
+    email: Optional[str] = None
+    follower_count: Optional[int] = None
+    employee_count_on_linkedin: Optional[str] = None
+    verified: Optional[str] = None
+    about: Optional[str] = None
+    address: Optional[str] = None
+    locations: List[str] = Field(default_factory=list)
+    employees: List[CompanyEmployee] = Field(default_factory=list)
+    jobs: List[CompanyJob] = Field(default_factory=list)
+    jobs_count: Optional[str] = None
+
 class FinalOutput(BaseModel):
     metadata: ProfileMetadata
     profiles: List[ProfileData]
+    companies: List[CompanyData] = Field(default_factory=list)
